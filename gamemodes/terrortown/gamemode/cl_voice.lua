@@ -41,7 +41,7 @@ local function RoleChatRecv()
 	
 	elseif role == ROLE_ZOMBIE then
 		chat.AddText(Color(69, 97, 0),
-			Format("(%s) ", string.upper(GetTranslation("zombie"))),
+			Format("(%s) ", string.upper(GetTranslation("wraith"))),
 			Color(100, 120, 40),
 			sender:Nick(),
 			Color(255, 255, 255),
@@ -127,7 +127,7 @@ function GM:OnPlayerChat(ply, text, teamchat, dead)
 		dead = true
 	end
 	
-	if teamchat and (not team and not (ply:IsTraitor() or ply:IsZombie() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin() or ply:IsDetective()) or team) then
+	if teamchat and (not team and not (ply:IsTraitor() or ply:IsWraith() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin() or ply:IsDetective()) or team) then
 		teamchat = false
 	end
 	
@@ -490,7 +490,7 @@ function GM:PlayerStartVoice(ply)
 	
 	-- Tell server this is global
 	if client == ply then
-		if client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveZombie() then
+		if client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveWraith() then
 			if (not client:KeyDown(IN_SPEED)) and (not client:KeyDownLast(IN_SPEED)) then
 				client.traitor_gvoice = true
 				RunConsoleCommand("tvog", "1")
@@ -520,12 +520,12 @@ function GM:PlayerStartVoice(ply)
 		draw.RoundedBox(4, 1, 1, w - 2, h - 2, shade)
 	end
 	
-	if client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveZombie() then
+	if client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveWraith() then
 		if ply == client then
 			if not client.traitor_gvoice then
 				pnl.Color = Color(200, 20, 20, 255)
 			end
-		elseif ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveZombie() then
+		elseif ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveWraith() then
 			if not ply.traitor_gvoice then
 				pnl.Color = Color(200, 20, 20, 255)
 			end
@@ -539,7 +539,7 @@ function GM:PlayerStartVoice(ply)
 	PlayerVoicePanels[ply] = pnl
 	
 	-- run ear gesture
-	if not ((ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveZombie()) and (not ply.traitor_gvoice)) then
+	if not ((ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveWraith()) and (not ply.traitor_gvoice)) then
 		ply:AnimPerformGesture(ACT_GMOD_IN_CHAT)
 	end
 end
@@ -550,7 +550,7 @@ local function ReceiveVoiceState()
 	
 	-- prevent glitching due to chat starting/ending across round boundary
 	if GAMEMODE.round_state ~= ROUND_ACTIVE then return end
-	if (not IsValid(LocalPlayer())) or (not (LocalPlayer():IsActiveTraitor() or LocalPlayer():IsActiveHypnotist() or LocalPlayer():IsActiveVampire() or LocalPlayer():IsActiveAssassin() or LocalPlayer():IsActiveZombie())) then return end
+	if (not IsValid(LocalPlayer())) or (not (LocalPlayer():IsActiveTraitor() or LocalPlayer():IsActiveHypnotist() or LocalPlayer():IsActiveVampire() or LocalPlayer():IsActiveAssassin() or LocalPlayer():IsActiveWraith())) then return end
 	
 	local ply = player.GetByID(idx)
 	if IsValid(ply) then
@@ -664,7 +664,7 @@ local function GetDrainRate()
 end
 
 local function IsTraitorChatting(client)
-	return (client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveZombie()) and (not client.traitor_gvoice)
+	return (client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveWraith()) and (not client.traitor_gvoice)
 end
 
 function VOICE.Tick()

@@ -101,7 +101,7 @@ function SCORE:HandleSelection()
 	local glitches = {}
 	local jesters = {}
 	local phantoms = {}
-	local zombies = {}
+	local wraiths = {}
 	local vampires = {}
 	local swappers = {}
 	local assassins = {}
@@ -121,8 +121,8 @@ function SCORE:HandleSelection()
 			table.insert(jesters, ply:SteamID())
 		elseif ply:GetPhantom() then
 			table.insert(phantoms, ply:SteamID())
-		elseif ply:GetZombie() then
-			table.insert(zombies, ply:SteamID())
+		elseif ply:GetWraith() then
+			table.insert(wraiths, ply:SteamID())
 		elseif ply:GetVampire() then
 			table.insert(vampires, ply:SteamID())
 		elseif ply:GetSwapper() then
@@ -134,7 +134,7 @@ function SCORE:HandleSelection()
 		end
 	end
 	
-	self:AddEvent({ id = EVENT_SELECTED, traitor_ids = traitors, detective_ids = detectives, hypnotist_ids = hypnotists, mercenary_ids = mercenaries, jester_ids = jesters, phantom_ids = phantoms, glitch_ids = glitches, zombie_ids = zombies, vampire_ids = vampires, swapper_ids = swappers, assassin_ids = assassins, killer_ids = killers })
+	self:AddEvent({ id = EVENT_SELECTED, traitor_ids = traitors, detective_ids = detectives, hypnotist_ids = hypnotists, mercenary_ids = mercenaries, jester_ids = jesters, phantom_ids = phantoms, glitch_ids = glitches, wraith_ids = wraiths, vampire_ids = vampires, swapper_ids = swappers, assassin_ids = assassins, killer_ids = killers })
 end
 
 function SCORE:HandleBodyFound(finder, found)
@@ -181,7 +181,7 @@ function SCORE:ApplyEventLogScores(wintype)
 	local glitches = {}
 	local jesters = {}
 	local phantoms = {}
-	local zombies = {}
+	local wraiths = {}
 	local vampires = {}
 	local swappers = {}
 	local assassins = {}
@@ -203,8 +203,8 @@ function SCORE:ApplyEventLogScores(wintype)
 			table.insert(jesters, ply:SteamID())
 		elseif ply:GetPhantom() then
 			table.insert(phantoms, ply:SteamID())
-		elseif ply:GetZombie() then
-			table.insert(zombies, ply:SteamID())
+		elseif ply:GetWraith() then
+			table.insert(wraiths, ply:SteamID())
 		elseif ply:GetVampire() then
 			table.insert(vampires, ply:SteamID())
 		elseif ply:GetSwapper() then
@@ -219,7 +219,7 @@ function SCORE:ApplyEventLogScores(wintype)
 	-- individual scores, and count those left alive
 	local alive = { traitors = 0, innos = 0 }
 	local dead = { traitors = 0, innos = 0 }
-	local scored_log = ScoreEventLog(self.Events, scores, traitors, detectives, hypnotists, mercenaries, jesters, phantoms, glitches, zombies, vampires, swappers, assassins, killers)
+	local scored_log = ScoreEventLog(self.Events, scores, traitors, detectives, hypnotists, mercenaries, jesters, phantoms, glitches, wraiths, vampires, swappers, assassins, killers)
 	local ply = nil
 	for sid, s in pairs(scored_log) do
 		ply = player.GetBySteamID(sid)

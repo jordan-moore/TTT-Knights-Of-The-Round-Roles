@@ -10,7 +10,7 @@ if (CLIENT) then
 		local JesterColor = Color(159, 0, 211)
 		local HypnotistColor = Color(255, 93, 223)
 		local PhantomColor = Color(82, 226, 255)
-		local ZombieColor = Color(69, 97, 0)
+		local WraithColor = Color(69, 97, 0)
 		local VampireColor = Color(45, 45, 45)
 		local SwapperColor = Color(111, 0, 255)
 		local AssassinColor = Color(112, 50, 0)
@@ -50,8 +50,8 @@ if (CLIENT) then
 			col = PhantomColor
 			role = "a phantom"
 		elseif role == ROLE_ZOMBIE then
-			col = ZombieColor
-			role = "a zombie"
+			col = WraithColor
+			role = "a wraith"
 		elseif role == ROLE_VAMPIRE then
 			col = VampireColor
 			role = "a vampire"

@@ -43,7 +43,7 @@ local bg_colors = {
 	glitch = Color(245, 106, 0, 200),
 	jester = Color(180, 23, 253, 200),
 	phantom = Color(82, 226, 255, 200),
-	zombie = Color(69, 97, 0, 200),
+	wraith = Color(69, 97, 0, 200),
 	vampire = Color(45, 45, 45, 200),
 	swapper = Color(111, 0, 255, 200),
 	assassin = Color(112, 50, 0, 200),
@@ -164,8 +164,8 @@ local function DrawBg(x, y, width, height, client)
 		col = bg_colors.jester
 	elseif client:GetPhantom() then
 		col = bg_colors.phantom
-	elseif client:GetZombie() then
-		col = bg_colors.zombie
+	elseif client:GetWraith() then
+		col = bg_colors.wraith
 	elseif client:GetVampire() then
 		col = bg_colors.vampire
 	elseif client:GetSwapper() then
@@ -351,7 +351,7 @@ local function InfoPaint(client)
 	
 	-- Draw round time
 	local is_haste = HasteMode() and round_state == ROUND_ACTIVE
-	local is_traitor = client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveKiller()
+	local is_traitor = client:IsActiveTraitor() or client:IsActiveHypnotist() or client:IsActiveWraith() or client:IsActiveVampire() or client:IsActiveAssassin() or client:IsActiveKiller()
 	
 	local endtime = GetGlobalFloat("ttt_round_end", 0) - CurTime()
 	

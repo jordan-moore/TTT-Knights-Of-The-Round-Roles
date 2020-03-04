@@ -26,7 +26,7 @@ function plymeta:GetJester() return self:GetRole() == ROLE_JESTER end
 
 function plymeta:GetPhantom() return self:GetRole() == ROLE_PHANTOM end
 
-function plymeta:GetZombie() return self:GetRole() == ROLE_ZOMBIE end
+function plymeta:GetWraith() return self:GetRole() == ROLE_ZOMBIE end
 
 function plymeta:GetVampire() return self:GetRole() == ROLE_VAMPIRE end
 
@@ -43,7 +43,7 @@ plymeta.IsHypnotist = plymeta.GetHypnotist
 plymeta.IsGlitch = plymeta.GetGlitch
 plymeta.IsJester = plymeta.GetJester
 plymeta.IsPhantom = plymeta.GetPhantom
-plymeta.IsZombie = plymeta.GetZombie
+plymeta.IsWraith = plymeta.GetWraith
 plymeta.IsVampire = plymeta.GetVampire
 plymeta.IsSwapper = plymeta.GetSwapper
 plymeta.IsAssassin = plymeta.GetAssassin
@@ -75,7 +75,7 @@ function plymeta:IsActiveJester() return self:IsActiveRole(ROLE_JESTER) end
 
 function plymeta:IsActivePhantom() return self:IsActiveRole(ROLE_PHANTOM) end
 
-function plymeta:IsActiveZombie() return self:IsActiveRole(ROLE_ZOMBIE) end
+function plymeta:IsActiveWraith() return self:IsActiveRole(ROLE_ZOMBIE) end
 
 function plymeta:IsActiveVampire() return self:IsActiveRole(ROLE_VAMPIRE) end
 
@@ -96,7 +96,7 @@ local role_strings = {
 	[ROLE_GLITCH] = "glitch",
 	[ROLE_JESTER] = "jester",
 	[ROLE_PHANTOM] = "phantom",
-	[ROLE_ZOMBIE] = "zombie",
+	[ROLE_ZOMBIE] = "wraith",
 	[ROLE_VAMPIRE] = "vampire",
 	[ROLE_SWAPPER] = "swapper",
 	[ROLE_ASSASSIN] = "assassin",

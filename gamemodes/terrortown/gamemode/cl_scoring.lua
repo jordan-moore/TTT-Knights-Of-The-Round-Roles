@@ -17,7 +17,7 @@ CLSCORE.HypnotistIDs = {}
 CLSCORE.GlitchIDs = {}
 CLSCORE.JesterIDs = {}
 CLSCORE.PhantomIDs = {}
-CLSCORE.ZombieIDs = {}
+CLSCORE.WraithIDs = {}
 CLSCORE.VampireIDs = {}
 CLSCORE.SwapperIDs = {}
 CLSCORE.AssassinIDs = {}
@@ -51,7 +51,7 @@ local jestervictim = ""
 local jesterkillerrole = -1
 local hypnotised = ""
 local revived = {}
-local zombified = {}
+local wraithified = {}
 local disconnected = {}
 local spawnedplayers = {}
 
@@ -74,9 +74,9 @@ net.Receive("TTT_Defibrillated", function(len)
 	table.insert(revived, defibed)
 end)
 
-net.Receive("TTT_Zombified", function(len)
+net.Receive("TTT_Wraithified", function(len)
 	zomed = net.ReadString()
-	table.insert(zombified, zomed)
+	table.insert(wraithified, zomed)
 	table.insert(revived, zomed)
 end)
 
@@ -88,7 +88,7 @@ end)
 net.Receive("TTT_ClearRoleSwaps", function(len)
 	hypnotised = ""
 	revived = {}
-	zombified = {}
+	wraithified = {}
 	disconnected = {}
 	spawnedplayers = {}
 end)
@@ -233,7 +233,7 @@ function CLSCORE:BuildScorePanel(dpanel)
 	for id, s in pairs(scores) do
 		if id ~= -1 then
 			local was_traitor = s.was_traitor
-			local role = was_traitor and T("traitor") or (s.was_detective and T("detective") or (s.was_hypnotist and T("hypnotist") or (s.was_mercenary and T("mercenary") or (s.was_jester and T("jester") or (s.was_phantom and T("phantom") or (s.was_glitch and T("glitch") or (s.was_zombie and T("zombie") or (s.was_vampire and T("vampire") or (s.was_swapper and T("swapper") or (s.was_assassin and T("assassin") or (s.was_killer and T("killer") or T("innocent"))))))))))))
+			local role = was_traitor and T("traitor") or (s.was_detective and T("detective") or (s.was_hypnotist and T("hypnotist") or (s.was_mercenary and T("mercenary") or (s.was_jester and T("jester") or (s.was_phantom and T("phantom") or (s.was_glitch and T("glitch") or (s.was_wraith and T("wraith") or (s.was_vampire and T("vampire") or (s.was_swapper and T("swapper") or (s.was_assassin and T("assassin") or (s.was_killer and T("killer") or T("innocent"))))))))))))
 			
 			local surv = ""
 			if s.deaths > 0 then
@@ -386,7 +386,7 @@ function CLSCORE:ShowPanel()
 	
 	for id, s in pairs(scores) do
 		if id ~= -1 then
-			local role = s.was_traitor and "tra" or (s.was_detective and "det" or (s.was_hypnotist and "hyp" or (s.was_jester and "jes" or (s.was_swapper and "swa" or (s.was_mercenary and "mer" or (s.was_glitch and "gli" or (s.was_phantom and "pha" or (s.was_zombie and "zom" or (s.was_assassin and "ass" or (s.was_vampire and "vam" or (s.was_killer and "kil" or "inn")))))))))))
+			local role = s.was_traitor and "tra" or (s.was_detective and "det" or (s.was_hypnotist and "hyp" or (s.was_jester and "jes" or (s.was_swapper and "swa" or (s.was_mercenary and "mer" or (s.was_glitch and "gli" or (s.was_phantom and "pha" or (s.was_wraith and "zom" or (s.was_assassin and "ass" or (s.was_vampire and "vam" or (s.was_killer and "kil" or "inn")))))))))))
 			
 			if role == "swa" and jesterkillerrole >= 0 then
 				if jesterkillerrole == 0 then
@@ -461,7 +461,7 @@ function CLSCORE:ShowPanel()
 					role = role .. "_hyped"
 				end
 				
-				for k, v in pairs(zombified) do
+				for k, v in pairs(wraithified) do
 					if v == nicks[id] then
 						role = role .. "_zomed"
 					end
@@ -595,7 +595,7 @@ function CLSCORE:Reset()
 	self.GlitchIDs = {}
 	self.JesterIDs = {}
 	self.PhantomIDs = {}
-	self.ZombieIDs = {}
+	self.WraithIDs = {}
 	self.VampireIDs = {}
 	self.SwapperIDs = {}
 	self.AssassinIDs = {}
@@ -617,7 +617,7 @@ function CLSCORE:Init(events)
 	local glitch = nil
 	local jester = nil
 	local phantom = nil
-	local zombie = nil
+	local wraith = nil
 	local vampire = nil
 	local swapper = nil
 	local assassin = nil
@@ -633,7 +633,7 @@ function CLSCORE:Init(events)
 			glitch = e.glitch_ids
 			jester = e.jester_ids
 			phantom = e.phantom_ids
-			zombie = e.zombie_ids
+			wraith = e.wraith_ids
 			vampire = e.vampire_ids
 			swapper = e.swapper_ids
 			assassin = e.assassin_ids
@@ -655,7 +655,7 @@ function CLSCORE:Init(events)
 		end
 	end
 	
-	scores = ScoreEventLog(events, scores, traitors, detectives, hypnotist, mercenary, jester, phantom, glitch, zombie, vampire, swapper, assassin, killer)
+	scores = ScoreEventLog(events, scores, traitors, detectives, hypnotist, mercenary, jester, phantom, glitch, wraith, vampire, swapper, assassin, killer)
 	
 	self.Players = nicks
 	self.Scores = scores
@@ -666,7 +666,7 @@ function CLSCORE:Init(events)
 	self.GlitchIDs = glitch
 	self.JesterIDs = jester
 	self.PhantomIDs = phantom
-	self.ZombieIDs = zombie
+	self.WraithIDs = wraith
 	self.VampireIDs = vampire
 	self.SwapperIDs = swapper
 	self.AssassinIDs = assassin

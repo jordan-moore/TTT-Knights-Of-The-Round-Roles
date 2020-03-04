@@ -10,7 +10,7 @@ L.hypnotist = "Hypnotist"
 L.glitch = "Glitch"
 L.jester = "Jester"
 L.phantom = "Phantom"
-L.zombie = "Zombie"
+L.wraith = "Wraith"
 L.vampire = "Vampire"
 L.swapper = "Swapper"
 L.assassin = "Assassin"
@@ -47,7 +47,7 @@ L.limit_left = "{num} round(s) or {time} minutes remaining before the map change
 --- Credit awards
 L.credit_det_all = "Detectives, you have been awarded {num} equipment credit(s) for your performance."
 L.credit_tr_all = "Traitors, you have been awarded {num} equipment credit(s) for your performance."
-L.credit_zom = "Zombie, you have been awarded {num} equipment credit(s) for your performance."
+L.credit_zom = "Wraith, you have been awarded {num} equipment credit(s) for your performance."
 L.credit_kil = "Killer, you have been awarded {num} equipment credit(s) for your performance."
 
 L.credit_kill = "You have received {num} credit(s) for killing a {role}."
@@ -67,7 +67,7 @@ L.body_found_h = "They were a Hypnotist."
 L.body_found_g = "They were a Glitch."
 L.body_found_j = "They were a Jester."
 L.body_found_p = "They were a Phantom."
-L.body_found_z = "They were a Zombie."
+L.body_found_z = "They were a Wraith."
 L.body_found_v = "They were a Vampire."
 L.body_found_s = "They were a Swapper."
 L.body_found_a = "They were an Assassin."
@@ -203,7 +203,7 @@ L.search_role_h = "This person was a Hypnotist"
 L.search_role_g = "This person was a Glitch"
 L.search_role_j = "This person was a Jester"
 L.search_role_p = "This person was a Phantom"
-L.search_role_z = "This person was a Zombie"
+L.search_role_z = "This person was a Wraith"
 L.search_role_v = "This person was a Vampire"
 L.search_role_s = "This person was a Swapper"
 L.search_role_a = "This person was an Assassin"
@@ -639,12 +639,12 @@ L.target_traitor = "TRAITOR"
 L.target_assassin = "ASSASSIN"
 L.target_hypnotist = "HYPNOTIST"
 L.target_vampire = "VAMPIRE"
-L.target_zombie = "ZOMBIE"
+L.target_wraith = "ZOMBIE"
 L.target_jester = "JESTER"
 L.target_swapper = "SWAPPER"
 L.target_killer = "KILLER"
 L.target_fellow_traitor = "FELLOW TRAITOR"
-L.target_fellow_zombie = "FELLOW ZOMBIE"
+L.target_fellow_wraith = "FELLOW ZOMBIE"
 L.target_current_target = "CURRENT TARGET"
 
 L.target_credits = "Search to silently receive unspent credits"
@@ -719,22 +719,22 @@ L.info_popup_phantom = [[You are a Phantom!  Try to survive and help your innoce
 You will haunt the player who kills you causing black smoke to appear.
 The haunting will then spread if other players kill your attacker.]]
 
-L.info_popup_zombie = [[You are a Zombie! Work with fellow zombies to kill all others.
+L.info_popup_wraith = [[You are a Wraith! Work with fellow wraiths to kill all others.
 
 These are your comrades:
-{zombielist}
+{wraithlist}
 
 All damage you deal with guns is reduced by one half.
-Killing someone with your claws will turn them into a zombie.
+Killing someone with your claws will turn them into a wraith.
 
 Press {menukey} to receive your special equipment!]]
 
-L.info_popup_zombie_alone = [[You are a Zombie! You have no fellow zombies this round.
+L.info_popup_wraith_alone = [[You are a Wraith! You have no fellow wraiths this round.
 
 Kill all others to win!
 
 All damage you deal with guns is reduced by one half.
-Killing someone with your claws will turn them into a zombie.
+Killing someone with your claws will turn them into a wraith.
 
 Press {menukey} to receive your special equipment!]]
 

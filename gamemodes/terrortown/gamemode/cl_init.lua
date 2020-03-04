@@ -220,7 +220,7 @@ local function ReceiveRole()
 	elseif client:IsGlitch() then MsgN("GLITCH")
 	elseif client:IsJester() then MsgN("JESTER")
 	elseif client:IsPhantom() then MsgN("PHANTOM")
-	elseif client:IsZombie() then MsgN("ZOMBIE")
+	elseif client:IsWraith() then MsgN("ZOMBIE")
 	elseif client:IsVampire() then MsgN("VAMPIRE")
 	elseif client:IsSwapper() then MsgN("SWAPPER")
 	elseif client:IsAssassin() then MsgN("ASSASSIN")
@@ -241,7 +241,7 @@ local function ReceiveRoleList()
 		if IsValid(ply) and ply.SetRole then
 			ply:SetRole(role)
 			
-			if ply:IsTraitor() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin() or ply:IsZombie() then
+			if ply:IsTraitor() or ply:IsHypnotist() or ply:IsVampire() or ply:IsAssassin() or ply:IsWraith() then
 				ply.traitor_gvoice = false -- assume traitorchat by default
 			end
 		end

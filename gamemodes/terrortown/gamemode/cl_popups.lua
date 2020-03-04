@@ -52,25 +52,25 @@ local function GetTextForRole(role)
 		return GetPTranslation("info_popup_phantom", { menukey = Key("+menu_context", "C") })
 	
 	elseif role == ROLE_ZOMBIE then
-		local zombies = {}
+		local wraiths = {}
 		for _, ply in pairs(player.GetAll()) do
-			if ply:IsZombie() or ply:IsGlitch() then
-				table.insert(zombies, ply)
+			if ply:IsWraith() or ply:IsGlitch() then
+				table.insert(wraiths, ply)
 			end
 		end
 		
 		local text
-		if #zombies > 1 then
-			local zombielist = ""
+		if #wraiths > 1 then
+			local wraithlist = ""
 			
-			for k, ply in pairs(zombies) do
+			for k, ply in pairs(wraiths) do
 				if ply ~= LocalPlayer() then
-					zombielist = zombielist .. string.rep(" ", 42) .. ply:Nick() .. "\n"
+					wraithlist = wraithlist .. string.rep(" ", 42) .. ply:Nick() .. "\n"
 				end
 			end
-			text = GetPTranslation("info_popup_zombie", { menukey = menukey, zombielist = zombielist })
+			text = GetPTranslation("info_popup_wraith", { menukey = menukey, wraithlist = wraithlist })
 		else
-			text = GetPTranslation("info_popup_zombie_alone", { menukey = menukey })
+			text = GetPTranslation("info_popup_wraith_alone", { menukey = menukey })
 		end
 		
 		return text

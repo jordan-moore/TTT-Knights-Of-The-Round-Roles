@@ -190,7 +190,7 @@ EquipmentItems = {
 			desc = "item_radar_desc"
 		},
 		
-		-- zombie speed
+		-- wraith speed
 		{
 			id = EQUIP_SPEED,
 			type = "item_passive",

@@ -32,7 +32,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendGlitchList()
 		SendJesterList()
 		SendPhantomList()
-		SendZombieList()
+		SendWraithList()
 		SendVampireList()
 		SendSwapperList()
 		SendAssassinList()
@@ -50,7 +50,7 @@ function GM:PlayerInitialSpawn(ply)
 		SendGlitchList(ply)
 		SendJesterList(ply)
 		SendPhantomList(ply)
-		SendZombieList(ply)
+		SendWraithList(ply)
 		SendVampireList(ply)
 		SendSwapperList(ply)
 		SendAssassinList(ply)
@@ -539,7 +539,7 @@ local function CheckCreditAward(victim, attacker)
 	if not IsValid(victim) then return end
 	
 	-- DETECTIVE AWARD
-	if IsValid(attacker) and attacker:IsPlayer() and attacker:IsActiveDetective() and (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsZombie() or victim:IsKiller()) then
+	if IsValid(attacker) and attacker:IsPlayer() and attacker:IsActiveDetective() and (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsWraith() or victim:IsKiller()) then
 		local amt = GetConVarNumber("ttt_det_credits_traitordead") or 1
 		for _, ply in pairs(player.GetAll()) do
 			if ply:IsActiveDetective() then
@@ -551,13 +551,13 @@ local function CheckCreditAward(victim, attacker)
 	end
 	
 	-- TRAITOR AWARD
-	if (not (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsZombie())) and (not GAMEMODE.AwardedCredits or GetConVar("ttt_credits_award_repeat"):GetBool()) then
+	if (not (victim:IsTraitor() or victim:IsHypnotist() or victim:IsVampire() or victim:IsAssassin() or victim:IsWraith())) and (not GAMEMODE.AwardedCredits or GetConVar("ttt_credits_award_repeat"):GetBool()) then
 		local inno_alive = 0
 		local inno_dead = 0
 		local inno_total = 0
 		
 		for _, ply in pairs(player.GetAll()) do
-			if not (ply:GetTraitor() or ply:GetHypnotist() or ply:GetVampire() or ply:GetAssassin() or ply:GetZombie()) then
+			if not (ply:GetTraitor() or ply:GetHypnotist() or ply:GetVampire() or ply:GetAssassin() or ply:GetWraith()) then
 				if ply:IsTerror() then
 					inno_alive = inno_alive + 1
 				elseif ply:IsDeadTerror() then
@@ -950,7 +950,7 @@ function GM:PlayerDeath(victim, infl, attacker)
 					elseif attacker:GetRole() == ROLE_HYPNOTIST then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with the hypnotist (" .. attacker:GetName() .. ")")
 					elseif attacker:GetRole() == ROLE_ZOMBIE then
-						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with a zombie (" .. attacker:GetName() .. ")")
+						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with a wraith (" .. attacker:GetName() .. ")")
 					elseif attacker:GetRole() == ROLE_VAMPIRE then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with the vampire (" .. attacker:GetName() .. ")")
 					elseif attacker:GetRole() == ROLE_ASSASSIN then

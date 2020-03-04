@@ -65,7 +65,7 @@ function SendJesterList(ply_or_rf) SendRoleList(ROLE_JESTER, ply_or_rf) end
 
 function SendPhantomList(ply_or_rf) SendRoleList(ROLE_PHANTOM, ply_or_rf) end
 
-function SendZombieList(ply_or_rf) SendRoleList(ROLE_ZOMBIE, ply_or_rf) end
+function SendWraithList(ply_or_rf) SendRoleList(ROLE_ZOMBIE, ply_or_rf) end
 
 function SendVampireList(ply_or_rf) SendRoleList(ROLE_VAMPIRE, ply_or_rf) end
 
@@ -91,7 +91,7 @@ function SendFullStateUpdate()
 	SendGlitchList()
 	SendJesterList()
 	SendPhantomList()
-	SendZombieList()
+	SendWraithList()
 	SendVampireList()
 	SendSwapperList()
 	SendAssassinList()
@@ -128,7 +128,7 @@ local function request_rolelist(ply)
 		SendGlitchList(ply)
 		SendJesterList(ply)
 		SendPhantomList(ply)
-		SendZombieList(ply)
+		SendWraithList(ply)
 		SendVampireList(ply)
 		SendSwapperList(ply)
 		SendAssassinList(ply)
@@ -288,7 +288,7 @@ end
 
 concommand.Add("ttt_force_phantom", force_phantom, nil, nil, FCVAR_CHEAT)
 
-local function force_zombie(ply)
+local function force_wraith(ply)
 	ply:SetRole(ROLE_ZOMBIE)
 	ply:SetMaxHealth(100)
 	ply:SetHealth(100)
@@ -302,7 +302,7 @@ local function force_zombie(ply)
 	SendFullStateUpdate()
 end
 
-concommand.Add("ttt_force_zombie", force_zombie, nil, nil, FCVAR_CHEAT)
+concommand.Add("ttt_force_wraith", force_wraith, nil, nil, FCVAR_CHEAT)
 
 local function force_vampire(ply)
 	ply:SetRole(ROLE_VAMPIRE)

@@ -9,7 +9,7 @@ if CLIENT then
 	SWEP.ViewModelFlip = false
 	SWEP.ViewModelFOV = 54
 else
-	util.AddNetworkString("TTT_Zombified")
+	util.AddNetworkString("TTT_Wraithified")
 end
 
 SWEP.Base = "weapon_tttbase"
@@ -77,14 +77,14 @@ function SWEP:PrimaryAttack()
 		self:GetOwner():SetAnimation(PLAYER_ATTACK1)
 		
 		if hitEnt and hitEnt:IsValid() then
-			if hitEnt:IsPlayer() and not hitEnt:IsZombie() then
+			if hitEnt:IsPlayer() and not hitEnt:IsWraith() then
 				if hitEnt:Health() <= 50 and not hitEnt:IsJester() and not hitEnt:IsSwapper() then
 					self:GetOwner():AddCredits(1)
 					LANG.Msg(self:GetOwner(), "credit_zom", { num = 1 })
-					hitEnt:PrintMessage(HUD_PRINTCENTER, "You will respawn as a zombie in 3 seconds.")
-					hitEnt:SetPData("IsZombifying", 1)
+					hitEnt:PrintMessage(HUD_PRINTCENTER, "You will respawn as a wraith in 3 seconds.")
+					hitEnt:SetPData("IsWraithifying", 1)
 					
-					net.Start("TTT_Zombified")
+					net.Start("TTT_Wraithified")
 					net.WriteString(hitEnt:Nick())
 					net.Broadcast()
 					
@@ -97,7 +97,7 @@ function SWEP:PrimaryAttack()
 						hitEnt:SetRole(ROLE_ZOMBIE)
 						hitEnt:SetHealth(100)
 						hitEnt:Give("weapon_zom_claws")
-						hitEnt:SetPData("IsZombifying", 0)
+						hitEnt:SetPData("IsWraithifying", 0)
 						body:Remove()
 						for k, v in pairs(player.GetAll()) do
 							if v:IsActiveGlitch() then

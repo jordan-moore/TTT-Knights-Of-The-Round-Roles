@@ -330,12 +330,12 @@ function GM:HUDDrawTargetID()
 	local target_assassin = false
 	local target_hypnotist = false
 	local target_vampire = false
-	local target_zombie = false
+	local target_wraith = false
 	local target_jester = false
 	local target_swapper = false
 	local target_killer = false
 	local target_fellow_traitor = false
-	local target_fellow_zombie = false
+	local target_fellow_wraith = false
 	local target_current_target = false
 	local target_corpse = false
 	
@@ -382,14 +382,14 @@ function GM:HUDDrawTargetID()
 			target_assassin = ent:IsRole(ROLE_ASSASSIN)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
 			target_vampire = ent:IsRole(ROLE_VAMPIRE)
-			target_zombie = ent:IsRole(ROLE_ZOMBIE)
+			target_wraith = ent:IsRole(ROLE_ZOMBIE)
 			target_jester = ent:IsRole(ROLE_JESTER)
 			target_swapper = ent:IsRole(ROLE_SWAPPER)
 			target_killer = ent:IsRole(ROLE_KILLER)
 		end
 		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN) and GetRoundState() == ROUND_ACTIVE then
 			target_fellow_traitor = ent:IsRole(ROLE_TRAITOR)
-			target_fellow_zombie = ent:IsRole(ROLE_ZOMBIE)
+			target_fellow_wraith = ent:IsRole(ROLE_ZOMBIE)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
 			target_glitch = ent:IsRole(ROLE_GLITCH)
 			target_jester = ent:IsRole(ROLE_JESTER) or ent:IsRole(ROLE_SWAPPER)
@@ -425,7 +425,7 @@ function GM:HUDDrawTargetID()
 	
 	local w, h = 0, 0 -- text width/height, reused several times
 	
-	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_zombie or target_jester or target_swapper or target_killer or target_fellow_traitor or target_fellow_zombie then
+	if target_innocent or target_detective or target_glitch or target_mercenary or target_phantom or target_traitor or target_assassin or target_hypnotist or target_vampire or target_wraith or target_jester or target_swapper or target_killer or target_fellow_traitor or target_fellow_wraith then
 		surface.SetTexture(ring_tex)
 		
 		if target_innocent then
@@ -446,7 +446,7 @@ function GM:HUDDrawTargetID()
 			surface.SetDrawColor(255, 80, 235, 200)
 		elseif target_vampire then
 			surface.SetDrawColor(45, 45, 45, 200)
-		elseif target_zombie or target_fellow_zombie or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
+		elseif target_wraith or target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
 			surface.SetDrawColor(69, 97, 0, 200)
 		elseif target_jester then
 			surface.SetDrawColor(180, 23, 253, 200)
@@ -571,8 +571,8 @@ function GM:HUDDrawTargetID()
 	elseif target_vampire then
 		text = L.target_vampire
 		clr = Color(45, 45, 45, 200)
-	elseif target_zombie then
-		text = L.target_zombie
+	elseif target_wraith then
+		text = L.target_wraith
 		clr = Color(69, 97, 0, 200)
 	elseif target_jester then
 		text = L.target_jester
@@ -589,10 +589,10 @@ function GM:HUDDrawTargetID()
 	elseif target_fellow_traitor or (target_glitch and client:GetRole() == ROLE_TRAITOR) then
 		text = L.target_fellow_traitor
 		clr = Color(255, 0, 0, 200)
-	elseif target_fellow_zombie or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
-		text = L.target_fellow_zombie
+	elseif target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
+		text = L.target_fellow_wraith
 		clr = Color(69, 97, 0, 200)
-	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveZombie() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
+	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveWraith() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then
 		text = L.target_credits
 		clr = COLOR_YELLOW
 	end

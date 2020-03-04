@@ -20,7 +20,7 @@ function ENT:CountTraitors()
 	
 	local trs = 0
 	for _, ply in pairs(player.GetAll()) do
-		if IsValid(ply) and (ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveZombie()) and ply:Alive() then
+		if IsValid(ply) and (ply:IsActiveTraitor() or ply:IsActiveHypnotist() or ply:IsActiveVampire() or ply:IsActiveAssassin() or ply:IsActiveWraith()) and ply:Alive() then
 			local pos = ply:GetPos()
 			if VectorInside(pos, mins, maxs) then
 				trs = trs + 1

@@ -16,7 +16,7 @@ function GM:PlayerCanPickupWeapon(ply, wep)
 		return false
 	elseif not ply:GetVampire() and wep:GetClass() == "weapon_vam_fangs" then
 		return false
-	elseif not ply:GetZombie() and wep:GetClass() == "weapon_zom_claws" then
+	elseif not ply:GetWraith() and wep:GetClass() == "weapon_zom_claws" then
 		return false
 	elseif not ply:CanCarryWeapon(wep) then
 		return false
@@ -358,7 +358,7 @@ end
 local function OrderEquipment(ply, cmd, args)
 	if not IsValid(ply) or #args ~= 1 then return end
 	
-	if not (ply:IsActiveTraitor() or ply:IsActiveDetective() or ply:IsActiveMercenary() or ply:IsActiveZombie() or ply:IsActiveVampire() or ply:IsActiveHypnotist() or ply:IsActiveAssassin() or ply:IsActiveKiller()) then return end
+	if not (ply:IsActiveTraitor() or ply:IsActiveDetective() or ply:IsActiveMercenary() or ply:IsActiveWraith() or ply:IsActiveVampire() or ply:IsActiveHypnotist() or ply:IsActiveAssassin() or ply:IsActiveKiller()) then return end
 	
 	-- no credits, can't happen when buying through menu as button will be off
 	if ply:GetCredits() < 1 then return end

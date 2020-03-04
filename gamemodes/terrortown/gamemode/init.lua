@@ -85,13 +85,13 @@ CreateConVar("ttt_hypnotist_enabled", "1")
 CreateConVar("ttt_glitch_enabled", "1")
 CreateConVar("ttt_jester_enabled", "1")
 CreateConVar("ttt_phantom_enabled", "1")
-CreateConVar("ttt_zombie_enabled", "1")
+CreateConVar("ttt_wraith_enabled", "1")
 CreateConVar("ttt_vampire_enabled", "1")
 CreateConVar("ttt_swapper_enabled", "1")
 CreateConVar("ttt_assassin_enabled", "1")
 CreateConVar("ttt_killer_enabled", "1")
 
-CreateConVar("ttt_zombie_chance", "0.1")
+CreateConVar("ttt_wraith_chance", "0.1")
 CreateConVar("ttt_hypnotist_chance", "0.2")
 CreateConVar("ttt_vampire_chance", "0.2")
 CreateConVar("ttt_assassin_chance", "0.2")
@@ -112,7 +112,7 @@ CreateConVar("ttt_swapper_required_innos", "2")
 CreateConVar("ttt_assassin_required_traitors", "2")
 CreateConVar("ttt_killer_required_innos", "3")
 
-CreateConVar("ttt_zombie_pct", "0.33")
+CreateConVar("ttt_wraith_pct", "0.33")
 
 -- Traitor credits
 CreateConVar("ttt_credits_starting", "2")
@@ -622,7 +622,7 @@ function TellTraitorsAboutTraitors()
 	local jesternick = {}
 	local killernick = {}
 	for k, v in pairs(player.GetAll()) do
-		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsZombie() or v:IsAssassin() then
+		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsWraith() or v:IsAssassin() then
 			table.insert(traitornicks, v:Nick())
 		elseif v:IsGlitch() then
 			table.insert(traitornicks, v:Nick())
@@ -637,7 +637,7 @@ function TellTraitorsAboutTraitors()
 	-- This is ugly as hell, but it's kinda nice to filter out the names of the
 	-- traitors themselves in the messages to them
 	for k, v in pairs(player.GetAll()) do
-		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsZombie() or v:IsAssassin() then
+		if v:IsTraitor() or v:IsHypnotist() or v:IsVampire() or v:IsWraith() or v:IsAssassin() then
 			if table.Count(glitchnick) > 0 then
 				v:PrintMessage(HUD_PRINTTALK, "There is a Glitch.")
 				v:PrintMessage(HUD_PRINTCENTER, "There is a Glitch.")
@@ -780,7 +780,7 @@ function BeginRound()
 	SCORE:HandleSelection() -- log traitors and detectives
 	
 	for k, v in pairs(player.GetAll()) do
-		v:SetPData("IsZombifying", 0)
+		v:SetPData("IsWraithifying", 0)
 		v:SetNWString("AssassinTarget", "")
 		if v:GetRole() == ROLE_ASSASSIN then
 			local innocents = {}
@@ -833,7 +833,7 @@ function BeginRound()
 	timer.Simple(1.5, TellTraitorsAboutTraitors)
 	timer.Simple(2.5, ShowRoundStartPopup)
 	
-	timer.Create("zombieHealthRegen", 0.66, 0, function()
+	timer.Create("wraithHealthRegen", 0.66, 0, function()
 		for k, v in pairs(player.GetAll()) do
 			if v:Alive() and not v:IsSpec() and v:HasEquipmentItem(EQUIP_REGEN) then
 				local hp = v:Health()
@@ -927,7 +927,7 @@ function LogScore(type)
 	end
 	
 	local roundRoles = { false, false, false, false, false, false, false, false, false, false, false, false }
-	local roleNames = { "Innocent", "Traitor", "Detective", "Mercenary", "Jester", "Phantom", "Hypnotist", "Glitch", "Zombie", "Vampire", "Swapper", "Assassin", "Killer" }
+	local roleNames = { "Innocent", "Traitor", "Detective", "Mercenary", "Jester", "Phantom", "Hypnotist", "Glitch", "Wraith", "Vampire", "Swapper", "Assassin", "Killer" }
 	
 	for k, v in pairs(player.GetAll()) do
 		local didWin = ((type == WIN_INNOCENT or type == WIN_TIMELIMIT) and (v:GetRole() == ROLE_INNOCENT or v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_GLITCH or v:GetRole() == ROLE_MERCENARY or v:GetRole() == ROLE_PHANTOM)) or (type == WIN_TRAITOR and (v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_ASSASSIN or v:GetRole() == ROLE_HYPNOTIST or v:GetRole() == ROLE_VAMPIRE or v:GetRole() == ROLE_ZOMBIE)) or (type == WIN_JESTER and (v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER))
@@ -1025,8 +1025,8 @@ function GM:TTTCheckForWin()
 	local swapper_alive = false
 	local killer_alive = false
 	for k, v in pairs(player.GetAll()) do
-		if (v:Alive() and v:IsTerror()) or v:GetPData("IsZombifying", 0) == 1 then
-			if v:GetTraitor() or v:GetHypnotist() or v:GetZombie() or v:GetVampire() or v:GetAssassin() or v:GetPData("IsZombifying", 0) == 1 then
+		if (v:Alive() and v:IsTerror()) or v:GetPData("IsWraithifying", 0) == 1 then
+			if v:GetTraitor() or v:GetHypnotist() or v:GetWraith() or v:GetVampire() or v:GetAssassin() or v:GetPData("IsWraithifying", 0) == 1 then
 				traitor_alive = true
 			elseif v:GetJester() then
 				jester_alive = true
@@ -1076,13 +1076,13 @@ local function GetTraitorCount(ply_count)
 	return traitor_count
 end
 
-local function GetZombieCount(ply_count)
-	-- get number of zombies: pct of players rounded down
-	local zombie_count = math.ceil(ply_count * GetConVar("ttt_zombie_pct"):GetFloat())
-	-- make sure there is at least 1 zombie
-	zombie_count = math.max(zombie_count, 1)
+local function GetWraithCount(ply_count)
+	-- get number of wraiths: pct of players rounded down
+	local wraith_count = math.ceil(ply_count * GetConVar("ttt_wraith_pct"):GetFloat())
+	-- make sure there is at least 1 wraith
+	wraith_count = math.max(wraith_count, 1)
 	
-	return zombie_count
+	return wraith_count
 end
 
 local function GetDetectiveCount(ply_count)
@@ -1133,20 +1133,20 @@ function SelectRoles()
 	-- determine how many of each role we want
 	local choice_count = #choices
 	local traitor_count = GetTraitorCount(choice_count)
-	local zombie_count = GetZombieCount(choice_count)
+	local wraith_count = GetWraithCount(choice_count)
 	local det_count = GetDetectiveCount(choice_count)
 	
-	local zombie_chance = GetConVar("ttt_zombie_chance"):GetFloat()
-	local real_zombie_chance = zombie_chance
+	local wraith_chance = GetConVar("ttt_wraith_chance"):GetFloat()
+	local real_wraith_chance = wraith_chance
 	
 	local hypnotist_chance = GetConVar("ttt_hypnotist_chance"):GetFloat()
-	local real_hypnotist_chance = hypnotist_chance / (1 - real_zombie_chance)
+	local real_hypnotist_chance = hypnotist_chance / (1 - real_wraith_chance)
 	
 	local vampire_chance = GetConVar("ttt_vampire_chance"):GetFloat()
-	local real_vampire_chance = vampire_chance / ((1 - real_zombie_chance) * (1 - real_hypnotist_chance))
+	local real_vampire_chance = vampire_chance / ((1 - real_wraith_chance) * (1 - real_hypnotist_chance))
 	
 	local assassin_chance = GetConVar("ttt_assassin_chance"):GetFloat()
-	local real_assassin_chance = assassin_chance / ((1 - real_zombie_chance) * (1 - real_hypnotist_chance) * (1 - real_vampire_chance))
+	local real_assassin_chance = assassin_chance / ((1 - real_wraith_chance) * (1 - real_hypnotist_chance) * (1 - real_vampire_chance))
 	
 	local jester_chance = GetConVar("ttt_jester_chance"):GetFloat()
 	local real_jester_chance = jester_chance
@@ -1177,7 +1177,7 @@ function SelectRoles()
 	local ts = 0
 	local ds = 0
 	local hasTraitor = false
-	local hasZombie = false
+	local hasWraith = false
 	local hasSpecial = false
 	local hasJester = false
 	local hasMercenary = false
@@ -1213,8 +1213,8 @@ function SelectRoles()
 					hasTraitor = true
 				elseif role == ROLE_ZOMBIE then
 					ts = ts + 1
-					print(v:Nick() .. " (" .. v:SteamID() .. ") - Zombie")
-					hasZombie = true
+					print(v:Nick() .. " (" .. v:SteamID() .. ") - Wraith")
+					hasWraith = true
 				elseif role == ROLE_HYPNOTIST then
 					ts = ts + 1
 					hasSpecial = true
@@ -1254,8 +1254,8 @@ function SelectRoles()
 	end
 	
 	print("-----RANDOMLY PICKING REMAINING ROLES-----")
-	if (GetConVar("ttt_zombie_enabled"):GetInt() == 1 and math.random() <= real_zombie_chance and not hasTraitor and not hasSpecial) or hasZombie then
-		while ts < zombie_count and #choices > 0 do
+	if (GetConVar("ttt_wraith_enabled"):GetInt() == 1 and math.random() <= real_wraith_chance and not hasTraitor and not hasSpecial) or hasWraith then
+		while ts < wraith_count and #choices > 0 do
 			-- select random index in choices table
 			local pick = math.random(1, #choices)
 			
@@ -1265,7 +1265,7 @@ function SelectRoles()
 			-- make this guy traitor if he was not a traitor last time, or if he makes
 			-- a roll
 			if IsValid(pply) and (not (table.HasValue(prev_roles[ROLE_TRAITOR], pply) or table.HasValue(prev_roles[ROLE_ZOMBIE], pply) or table.HasValue(prev_roles[ROLE_HYPNOTIST], pply) or table.HasValue(prev_roles[ROLE_VAMPIRE], pply) or table.HasValue(prev_roles[ROLE_ASSASSIN], pply)) or (math.random(1, 3) == 2)) and pply:SteamID() ~= "STEAM_0:1:22691201" then
-				print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Zombie")
+				print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Wraith")
 				pply:SetRole(ROLE_ZOMBIE)
 				table.remove(choices, pick)
 				ts = ts + 1

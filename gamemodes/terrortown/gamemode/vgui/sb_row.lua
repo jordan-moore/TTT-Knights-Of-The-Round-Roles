@@ -97,7 +97,7 @@ local rolecolor = {
 	jester = Color(180, 0, 255, 30),
 	hypnotist = Color(255, 100, 255, 30),
 	phantom = Color(82, 226, 255, 30),
-	zombie = Color(69, 97, 0, 30),
+	wraith = Color(69, 97, 0, 30),
 	vampire = Color(70, 70, 70, 30),
 	swapper = Color(111, 0, 255, 30),
 	assassin = Color(112, 50, 0, 30),
@@ -131,8 +131,8 @@ function GM:TTTScoreboardRowColorForPlayer(ply)
 			return rolecolor.jester
 		elseif ply:IsHypnotist() then
 			return rolecolor.hypnotist
-		elseif ply:IsZombie() then
-			return rolecolor.zombie
+		elseif ply:IsWraith() then
+			return rolecolor.wraith
 		elseif ply:IsVampire() then
 			return rolecolor.vampire
 		elseif ply:IsSwapper() then
@@ -159,16 +159,16 @@ function GM:TTTScoreboardRowColorForPlayer(ply)
 			return rolecolor.hypnotist
 		elseif ply:IsJester() or ply:IsSwapper() then
 			return rolecolor.jester
-		elseif ply:IsZombie() then
-			return rolecolor.zombie
+		elseif ply:IsWraith() then
+			return rolecolor.wraith
 		elseif ply:IsVampire() then
 			return rolecolor.vampire
 		elseif ply:IsAssassin() then
 			return rolecolor.assassin
 		end
-	elseif LocalPlayer():IsZombie() then
-		if ply:IsZombie() or ply:IsGlitch() then
-			return rolecolor.zombie
+	elseif LocalPlayer():IsWraith() then
+		if ply:IsWraith() or ply:IsGlitch() then
+			return rolecolor.wraith
 		elseif ply:IsJester() or ply:IsSwapper() then
 			return rolecolor.jester
 		end
@@ -225,7 +225,7 @@ function PANEL:Paint(width, height)
 		rolestr = "vam"
 	elseif c == rolecolor.assassin then
 		rolestr = "ass"
-	elseif c == rolecolor.zombie then
+	elseif c == rolecolor.wraith then
 		rolestr = "zom"
 	elseif c == rolecolor.jester then
 		rolestr = "jes"
@@ -313,7 +313,7 @@ function PANEL:UpdatePlayerData()
 	self.nick:SetText(ply:Nick())
 	if ply:Nick() == LocalPlayer():GetNWString("AssassinTarget", "") and GetRoundState() >= ROUND_ACTIVE then
 		self.nick:SetText(ply:Nick() .. " (TARGET)")
-	elseif (LocalPlayer():GetTraitor() or LocalPlayer():GetHypnotist() or LocalPlayer():GetVampire() or LocalPlayer():GetZombie()) and GetRoundState() >= ROUND_ACTIVE then
+	elseif (LocalPlayer():GetTraitor() or LocalPlayer():GetHypnotist() or LocalPlayer():GetVampire() or LocalPlayer():GetWraith()) and GetRoundState() >= ROUND_ACTIVE then
 		for k, v in pairs(player.GetAll()) do
 			if ply:Nick() == v:GetNWString("AssassinTarget", "") then
 				self.nick:SetText(ply:Nick() .. " (" .. v:Nick() .. "'s Target)")
