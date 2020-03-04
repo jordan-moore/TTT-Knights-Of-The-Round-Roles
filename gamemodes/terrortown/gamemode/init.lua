@@ -930,7 +930,7 @@ function LogScore(type)
 	local roleNames = { "Innocent", "Traitor", "Detective", "Mercenary", "Jester", "Phantom", "Hypnotist", "Glitch", "Wraith", "Vampire", "Swapper", "Assassin", "Killer" }
 	
 	for k, v in pairs(player.GetAll()) do
-		local didWin = ((type == WIN_INNOCENT or type == WIN_TIMELIMIT) and (v:GetRole() == ROLE_INNOCENT or v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_GLITCH or v:GetRole() == ROLE_MERCENARY or v:GetRole() == ROLE_PHANTOM)) or (type == WIN_TRAITOR and (v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_ASSASSIN or v:GetRole() == ROLE_HYPNOTIST or v:GetRole() == ROLE_VAMPIRE or v:GetRole() == ROLE_ZOMBIE)) or (type == WIN_JESTER and (v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER))
+		local didWin = ((type == WIN_INNOCENT or type == WIN_TIMELIMIT) and (v:GetRole() == ROLE_INNOCENT or v:GetRole() == ROLE_DETECTIVE or v:GetRole() == ROLE_GLITCH or v:GetRole() == ROLE_MERCENARY or v:GetRole() == ROLE_PHANTOM)) or (type == WIN_TRAITOR and (v:GetRole() == ROLE_TRAITOR or v:GetRole() == ROLE_ASSASSIN or v:GetRole() == ROLE_HYPNOTIST or v:GetRole() == ROLE_VAMPIRE or v:GetRole() == ROLE_WRAITH)) or (type == WIN_JESTER and (v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER))
 		
 		if not playerStats[v:Nick()] then
 			playerStats[v:Nick()] = { 0, 0 } -- Wins, Rounds
@@ -1106,7 +1106,7 @@ function SelectRoles()
 		[ROLE_GLITCH] = {},
 		[ROLE_JESTER] = {},
 		[ROLE_PHANTOM] = {},
-		[ROLE_ZOMBIE] = {},
+		[ROLE_WRAITH] = {},
 		[ROLE_VAMPIRE] = {},
 		[ROLE_SWAPPER] = {},
 		[ROLE_ASSASSIN] = {},
@@ -1211,7 +1211,7 @@ function SelectRoles()
 					ts = ts + 1
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Traitor")
 					hasTraitor = true
-				elseif role == ROLE_ZOMBIE then
+				elseif role == ROLE_WRAITH then
 					ts = ts + 1
 					print(v:Nick() .. " (" .. v:SteamID() .. ") - Wraith")
 					hasWraith = true
@@ -1264,9 +1264,9 @@ function SelectRoles()
 			
 			-- make this guy traitor if he was not a traitor last time, or if he makes
 			-- a roll
-			if IsValid(pply) and (not (table.HasValue(prev_roles[ROLE_TRAITOR], pply) or table.HasValue(prev_roles[ROLE_ZOMBIE], pply) or table.HasValue(prev_roles[ROLE_HYPNOTIST], pply) or table.HasValue(prev_roles[ROLE_VAMPIRE], pply) or table.HasValue(prev_roles[ROLE_ASSASSIN], pply)) or (math.random(1, 3) == 2)) and pply:SteamID() ~= "STEAM_0:1:22691201" then
+			if IsValid(pply) and (not (table.HasValue(prev_roles[ROLE_TRAITOR], pply) or table.HasValue(prev_roles[ROLE_WRAITH], pply) or table.HasValue(prev_roles[ROLE_HYPNOTIST], pply) or table.HasValue(prev_roles[ROLE_VAMPIRE], pply) or table.HasValue(prev_roles[ROLE_ASSASSIN], pply)) or (math.random(1, 3) == 2)) and pply:SteamID() ~= "STEAM_0:1:22691201" then
 				print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Wraith")
-				pply:SetRole(ROLE_ZOMBIE)
+				pply:SetRole(ROLE_WRAITH)
 				table.remove(choices, pick)
 				ts = ts + 1
 			end
@@ -1281,7 +1281,7 @@ function SelectRoles()
 			
 			-- make this guy traitor if he was not a traitor last time, or if he makes
 			-- a roll
-			if IsValid(pply) and ((not (table.HasValue(prev_roles[ROLE_TRAITOR], pply) or table.HasValue(prev_roles[ROLE_ZOMBIE], pply) or table.HasValue(prev_roles[ROLE_HYPNOTIST], pply) or table.HasValue(prev_roles[ROLE_VAMPIRE], pply) or table.HasValue(prev_roles[ROLE_ASSASSIN], pply))) or (math.random(1, 3) == 2)) and pply:SteamID() ~= "STEAM_0:1:22691201" then
+			if IsValid(pply) and ((not (table.HasValue(prev_roles[ROLE_TRAITOR], pply) or table.HasValue(prev_roles[ROLE_WRAITH], pply) or table.HasValue(prev_roles[ROLE_HYPNOTIST], pply) or table.HasValue(prev_roles[ROLE_VAMPIRE], pply) or table.HasValue(prev_roles[ROLE_ASSASSIN], pply))) or (math.random(1, 3) == 2)) and pply:SteamID() ~= "STEAM_0:1:22691201" then
 				if ts == GetConVar("ttt_hypnotist_required_traitors"):GetInt() - 1 and GetConVar("ttt_hypnotist_enabled"):GetInt() == 1 and math.random() <= real_hypnotist_chance and not hasSpecial then
 					print(pply:Nick() .. " (" .. pply:SteamID() .. ") - Hypnotist")
 					pply:SetRole(ROLE_HYPNOTIST)

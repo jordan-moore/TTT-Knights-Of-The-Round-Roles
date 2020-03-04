@@ -39,7 +39,7 @@ local function RoleChatRecv()
 			Color(255, 255, 255),
 			": " .. text)
 	
-	elseif role == ROLE_ZOMBIE then
+	elseif role == ROLE_WRAITH then
 		chat.AddText(Color(69, 97, 0),
 			Format("(%s) ", string.upper(GetTranslation("wraith"))),
 			Color(100, 120, 40),

@@ -171,7 +171,7 @@ EquipmentItems = {
 		}
 	};
 	
-	[ROLE_ZOMBIE] = {
+	[ROLE_WRAITH] = {
 		-- body armor
 		{
 			id = EQUIP_ARMOR,

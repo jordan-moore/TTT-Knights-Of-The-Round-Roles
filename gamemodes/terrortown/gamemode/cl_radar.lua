@@ -208,7 +208,7 @@ function RADAR:Draw(client)
 					surface.SetTextColor(0, 255, 0, alpha)
 				end
 			elseif client:GetWraith() then
-				if role == ROLE_ZOMBIE or role == ROLE_GLITCH then
+				if role == ROLE_WRAITH or role == ROLE_GLITCH then
 					surface.SetDrawColor(70, 100, 25, alpha)
 					surface.SetTextColor(70, 100, 25, alpha)
 				elseif role == ROLE_SWAPPER or role == ROLE_JESTER then

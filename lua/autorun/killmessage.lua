@@ -49,7 +49,7 @@ if (CLIENT) then
 		elseif role == ROLE_PHANTOM then
 			col = PhantomColor
 			role = "a phantom"
-		elseif role == ROLE_ZOMBIE then
+		elseif role == ROLE_WRAITH then
 			col = WraithColor
 			role = "a wraith"
 		elseif role == ROLE_VAMPIRE then

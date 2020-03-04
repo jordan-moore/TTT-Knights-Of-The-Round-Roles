@@ -167,7 +167,7 @@ function GM:PostDrawTranslucentRenderables()
 				elseif v:GetRole() == ROLE_VAMPIRE then
 					render.SetMaterial(indicator_matvam)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
-				elseif v:GetRole() == ROLE_ZOMBIE then
+				elseif v:GetRole() == ROLE_WRAITH then
 					render.SetMaterial(indicator_matzom)
 					render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 				elseif v:GetRole() == ROLE_JESTER then
@@ -199,8 +199,8 @@ function GM:PostDrawTranslucentRenderables()
 						render.SetMaterial(indicator_matjes)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					end
-				elseif client:GetRole() == ROLE_ZOMBIE then
-					if v:GetRole() == ROLE_ZOMBIE or v:GetRole() == ROLE_GLITCH then
+				elseif client:GetRole() == ROLE_WRAITH then
+					if v:GetRole() == ROLE_WRAITH or v:GetRole() == ROLE_GLITCH then
 						render.SetMaterial(indicator_matzom_noz)
 						render.DrawQuadEasy(pos, dir, 8, 8, indicator_col, 180)
 					elseif v:GetRole() == ROLE_JESTER or v:GetRole() == ROLE_SWAPPER then
@@ -360,7 +360,7 @@ function GM:HUDDrawTargetID()
 		if ent:GetActiveWeapon():IsValid() and ent:GetActiveWeapon():GetClass() == "weapon_ttt_cloak" then
 			client.last_id = nil
 			
-			if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:IsSpec() then
+			if client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_WRAITH or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN or client:IsSpec() then
 				text = ent:Nick() .. L.target_disg
 			else
 				return
@@ -382,14 +382,14 @@ function GM:HUDDrawTargetID()
 			target_assassin = ent:IsRole(ROLE_ASSASSIN)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
 			target_vampire = ent:IsRole(ROLE_VAMPIRE)
-			target_wraith = ent:IsRole(ROLE_ZOMBIE)
+			target_wraith = ent:IsRole(ROLE_WRAITH)
 			target_jester = ent:IsRole(ROLE_JESTER)
 			target_swapper = ent:IsRole(ROLE_SWAPPER)
 			target_killer = ent:IsRole(ROLE_KILLER)
 		end
-		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_ZOMBIE or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN) and GetRoundState() == ROUND_ACTIVE then
+		if (client:GetRole() == ROLE_TRAITOR or client:GetRole() == ROLE_HYPNOTIST or client:GetRole() == ROLE_WRAITH or client:GetRole() == ROLE_VAMPIRE or client:GetRole() == ROLE_ASSASSIN) and GetRoundState() == ROUND_ACTIVE then
 			target_fellow_traitor = ent:IsRole(ROLE_TRAITOR)
-			target_fellow_wraith = ent:IsRole(ROLE_ZOMBIE)
+			target_fellow_wraith = ent:IsRole(ROLE_WRAITH)
 			target_hypnotist = ent:IsRole(ROLE_HYPNOTIST)
 			target_glitch = ent:IsRole(ROLE_GLITCH)
 			target_jester = ent:IsRole(ROLE_JESTER) or ent:IsRole(ROLE_SWAPPER)
@@ -446,7 +446,7 @@ function GM:HUDDrawTargetID()
 			surface.SetDrawColor(255, 80, 235, 200)
 		elseif target_vampire then
 			surface.SetDrawColor(45, 45, 45, 200)
-		elseif target_wraith or target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
+		elseif target_wraith or target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_WRAITH) then
 			surface.SetDrawColor(69, 97, 0, 200)
 		elseif target_jester then
 			surface.SetDrawColor(180, 23, 253, 200)
@@ -589,7 +589,7 @@ function GM:HUDDrawTargetID()
 	elseif target_fellow_traitor or (target_glitch and client:GetRole() == ROLE_TRAITOR) then
 		text = L.target_fellow_traitor
 		clr = Color(255, 0, 0, 200)
-	elseif target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_ZOMBIE) then
+	elseif target_fellow_wraith or (target_glitch and client:GetRole() == ROLE_WRAITH) then
 		text = L.target_fellow_wraith
 		clr = Color(69, 97, 0, 200)
 	elseif target_corpse and (client:IsActiveDetective() or client:IsActiveTraitor() or client:IsActiveMercenary() or client:IsActiveWraith() or client:IsActiveVampire() or client:IsActiveHypnotist() or client:IsActiveAssassin() or client:IsActiveKiller()) and CORPSE.GetCredits(ent, 0) > 0 then

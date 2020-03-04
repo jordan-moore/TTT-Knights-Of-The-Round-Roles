@@ -41,7 +41,7 @@ hook.Add("TTTPlayerSpeed", "TTTSprint4TTTPlayerSpeed", function(ply)
 			return 1.25 * ply.mult
 		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_vam_fangs" and wep:Clip1() < 13 then
 			return 3 * ply.mult
-		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_zom_claws" then
+		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_wraith_claws" then
 			if ply:HasEquipmentItem(EQUIP_SPEED) then
 				return 1.5 * ply.mult
 			else
@@ -65,7 +65,7 @@ hook.Add("TTTPlayerSpeedModifier", "TTTSprint4TTTPlayerSpeed", function(ply, _, 
 			return 1.25 * ply.mult
 		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_vam_fangs" and wep:Clip1() < 13 then
 			return 3 * ply.mult
-		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_zom_claws" then
+		elseif wep and IsValid(wep) and wep:GetClass() == "weapon_wraith_claws" then
 			if ply:HasEquipmentItem(EQUIP_SPEED) then
 				return 1.5 * ply.mult
 			else

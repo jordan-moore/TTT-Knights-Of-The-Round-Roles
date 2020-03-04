@@ -51,7 +51,7 @@ local function GetTextForRole(role)
 	elseif role == ROLE_PHANTOM then
 		return GetPTranslation("info_popup_phantom", { menukey = Key("+menu_context", "C") })
 	
-	elseif role == ROLE_ZOMBIE then
+	elseif role == ROLE_WRAITH then
 		local wraiths = {}
 		for _, ply in pairs(player.GetAll()) do
 			if ply:IsWraith() or ply:IsGlitch() then

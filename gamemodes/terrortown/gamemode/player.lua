@@ -820,7 +820,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(attacker)
 						end
 						DRINKS.AddPlayerAction("teamkill", attacker)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) or attacker:IsRole(ROLE_KILLER) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_WRAITH) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
 						elseif GetConVar("ttt_drinking_death"):GetString() == "shot" then
@@ -828,7 +828,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 						end
 						DRINKS.AddPlayerAction("death", ply)
 					end
-				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_ZOMBIE) then
+				elseif ply:IsRole(ROLE_TRAITOR) or ply:IsRole(ROLE_ASSASSIN) or ply:IsRole(ROLE_HYPNOTIST) or ply:IsRole(ROLE_VAMPIRE) or ply:IsRole(ROLE_WRAITH) then
 					if attacker:IsRole(ROLE_INNOCENT) or attacker:IsRole(ROLE_DETECTIVE) or attacker:IsRole(ROLE_GLITCH) or attacker:IsRole(ROLE_MERCENARY) or attacker:IsRole(ROLE_PHANTOM) or attacker:IsRole(ROLE_KILLER) then
 						if GetConVar("ttt_drinking_death"):GetString() == "drink" then
 							DRINKS.AddDrink(ply)
@@ -836,7 +836,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 							DRINKS.AddShot(ply)
 						end
 						DRINKS.AddPlayerAction("death", ply)
-					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_ZOMBIE) then
+					elseif attacker:IsRole(ROLE_TRAITOR) or attacker:IsRole(ROLE_ASSASSIN) or attacker:IsRole(ROLE_HYPNOTIST) or attacker:IsRole(ROLE_VAMPIRE) or attacker:IsRole(ROLE_WRAITH) then
 						if GetConVar("ttt_drinking_team_kill"):GetString() == "drink" then
 							DRINKS.AddDrink(attacker)
 						elseif GetConVar("ttt_drinking_team_kill"):GetString() == "shot" then
@@ -944,12 +944,12 @@ function GM:PlayerDeath(victim, infl, attacker)
 			if ply == attacker then
 				attacker:PrintMessage(HUD_PRINTCENTER, "You killed the swapper!")
 			else
-				if ply:GetRole() == ROLE_TRAITOR or ply:GetRole() == ROLE_HYPNOTIST or ply:GetRole() == ROLE_ZOMBIE or ply:GetRole() == ROLE_VAMPIRE or ply:GetRole() == ROLE_ASSASSIN then
+				if ply:GetRole() == ROLE_TRAITOR or ply:GetRole() == ROLE_HYPNOTIST or ply:GetRole() == ROLE_WRAITH or ply:GetRole() == ROLE_VAMPIRE or ply:GetRole() == ROLE_ASSASSIN then
 					if attacker:GetRole() == ROLE_TRAITOR then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with a traitor (" .. attacker:GetName() .. ")")
 					elseif attacker:GetRole() == ROLE_HYPNOTIST then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with the hypnotist (" .. attacker:GetName() .. ")")
-					elseif attacker:GetRole() == ROLE_ZOMBIE then
+					elseif attacker:GetRole() == ROLE_WRAITH then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with a wraith (" .. attacker:GetName() .. ")")
 					elseif attacker:GetRole() == ROLE_VAMPIRE then
 						ply:PrintMessage(HUD_PRINTCENTER, "The swapper (" .. victim:GetName() .. ") has swapped with the vampire (" .. attacker:GetName() .. ")")
@@ -1097,7 +1097,7 @@ function GM:ScalePlayerDamage(ply, hitgroup, dmginfo)
 		dmginfo:ScaleDamage(0)
 	end
 	
-	if ply:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():GetRole() == ROLE_ZOMBIE and dmginfo:IsBulletDamage() then
+	if ply:IsPlayer() and dmginfo:GetAttacker():IsPlayer() and dmginfo:GetAttacker():GetRole() == ROLE_WRAITH and dmginfo:IsBulletDamage() then
 		dmginfo:ScaleDamage(0.5)
 	end
 	
